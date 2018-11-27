@@ -1,7 +1,6 @@
-Role Name
+Muklava Automation
 =========
 
-A brief description of the role goes here.
 
 Requirements
 ------------
