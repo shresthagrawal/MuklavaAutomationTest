@@ -1,38 +1,38 @@
 ---
-#- name: publish latest C#code using docker and msbuild
-#  hosts: localhost
-#  vars:
-#    tasks: buildC#
-#  roles:
-#    - automation
+- name: publish latest C#code using docker and msbuild
+  hosts: localhost
+  vars:
+    tasks: buildC#
+  roles:
+    - automation
 
-#- name: deploy latest C#code build
-#  hosts: onlineServer
-#  vars:
-#    tasks: deployC#
-#  roles:
-#    - automation   
+- name: deploy latest C#code build
+  hosts: onlineServer
+  vars:
+    tasks: deployC#
+  roles:
+    - automation   
 
-#- name: copy the latest Php code to the online server
-#  hosts: onlineServer
-#  vars:
-#    task: copyPhpFiles
-#  roles:
-#    - automation   
+- name: copy the latest Php code to the online server
+  hosts: onlineServer
+  vars:
+    task: copyPhpFiles
+  roles:
+    - automation   
 
-#- name: copy the latest Php code to the online server
-#  hosts: onlineServer
-#  vars:
-#    task: buildDeployAndroidApp
-#  roles:
-#    - automation 
+- name: copy the latest Php code to the online server
+  hosts: onlineServer
+  vars:
+    task: buildDeployAndroidApp
+  roles:
+    - automation 
 
-#- name: build latest android app, deploy it to server and notify user for the new update
-#  hosts: onlineServer
-#  vars:
-#    task: buildDeployAndroidApp
-#  roles:
-#    - automation 
+- name: build latest android app, deploy it to server and notify user for the new update
+  hosts: onlineServer
+  vars:
+    task: buildDeployAndroidApp
+  roles:
+    - automation 
 
 - name: backup and update new mysql data to remote local host
   hosts: onlineServer
