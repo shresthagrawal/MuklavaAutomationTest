@@ -19,7 +19,7 @@
 - name: Running the container to deploy the code
   docker_container:
     name: msbuildMuklavaProject
-    image: msbuild:MuklavaProject
+    image: didstopia/msbuild
     state: started
     volumes: /home/arash/Desktop/GoogleCodeIn/MuklavaAutomation/automation/files:/tmp:rw
     command: /tmp/run.sh
