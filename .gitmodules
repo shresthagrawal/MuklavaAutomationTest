@@ -1,0 +1,9 @@
+[submodule "automation/files/phpFilesClone/muklavaphp"]
+	path = automation/files/phpFilesClone/muklavaphp
+	url = https://shresthagrawal@bitbucket.org/shresthagrawal/muklavaphp.git
+[submodule "automation/files/androidAppClone/muklavaandroidapp"]
+	path = automation/files/androidAppClone/muklavaandroidapp
+	url = https://shresthagrawal@bitbucket.org/shresthagrawal/muklavaandroidapp.git
+[submodule "automation/files/C#.netProjectClone/muklavacsharp"]
+	path = "automation/files/C#.netProjectClone/muklavacsharp"
+	url = https://shresthagrawal@bitbucket.org/shresthagrawal/muklavacsharp.git

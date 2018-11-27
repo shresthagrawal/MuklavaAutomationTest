@@ -1,0 +1,41 @@
+
+# this task is used to Build The Muklava Software created in C# using MS build
+
+# first install docker-py packages which is a prerequisiste for ansible docker modue
+- name: install docker-py package
+  pip: name=docker-py
+
+# start the docker deamon in background 
+- name: run docker deamon
+  shell: dockerd & 
+
+# get the docker image which has the msbuild and all the environment already setup
+- name: loadDocker container
+  shell:  docker pull didstopia/msbuild
+
+# the latest image is called, then the files directory is mounted to Docker
+# it runs a shell script (/files/run.sh) which pulls the latest gitRepo for the .net project 
+# and then builds and publish it using msbild   
+- name: Running the container to deploy the code
+  docker_container:
+    name: msbuildMuklavaProject
+    image: msbuild:MuklavaProject
+    state: started
+    volumes: /home/arash/Desktop/GoogleCodeIn/MuklavaAutomation/automation/files:/tmp:rw
+    command: /tmp/run.sh
+  register: stdout
+
+# prints the error if log files are empty 
+#- debug:
+#    var: stdout 
+
+- name: Stop the Docker container
+  docker_container:
+    name: msbuildMuklavaProject
+    state: stopped
+
+- name: Remove container
+  docker_container:
+    name: msbuildMuklavaProject
+    state: absent
+  

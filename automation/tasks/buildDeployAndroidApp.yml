@@ -1,0 +1,33 @@
+
+- name: get the latest androidstudio project code using GIT
+  git:
+    repo: https://shresthagrawal@bitbucket.org/shresthagrawal/muklavaandroidapp.git
+    dest: ../files/androidAppClone/muklavaandroidapp/
+    update: yes
+    version: master
+  delegate_to: localhost
+  become: yes
+
+# to run this the android SDK should be installed and configured in the system
+- name: build the androidstudio project in debug mode using gralew in console  
+  shell: ./gradlew assembleDebug
+  delegate_to: localhost
+
+- name: copy the app-debug apk to the server
+  copy:
+    src: ../files/androidAppClone/muklavaandroidapp/app/build/outputs/apk/debug/
+    dest: public_html/appRelease
+
+
+# the push notification is created using the firebase push notification
+# in the online server contains the api for creating the push notification 
+# you can check the api code @ /automation/files/muklavaphp//automation/files/phpFilesClone/muklavaphp/fcm
+- name: send a push notification to all users for the latest build available
+  uri:
+    url: http://muklava.com/salabs/fcm/send_notification_get.php?title=%27update%20available%27&message=%27kindly%20update%20to%20stay%20updated%27
+    method: GET
+    return_content: yes
+  delegate_to: localhost
+  register: msg
+- debug:
+    var: msg['content']

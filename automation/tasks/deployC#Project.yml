@@ -1,0 +1,5 @@
+# copy the published c# code to the server 
+- name: copying the published code to the online server
+  copy:
+    src: ../files/C#.netProjectClone/muklavacsharp/
+    dest: public_html/deployedCode

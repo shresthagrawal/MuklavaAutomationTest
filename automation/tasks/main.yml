@@ -1,0 +1,35 @@
+---
+
+##################### build and deploy the C# code to the server ######################
+
+# build the C# project inside a docker container
+- import_tasks: buildC#Project.yml
+  when: task == "buildC#"
+
+# deploy it to the server
+- import_tasks: deployC#Project.yml
+  when: task == "deployC#"
+
+######### copy the lastes php server code to online server#########################  
+  
+# get the latest server code from the Git repo and copy it to the online server  
+- import_tasks: uploadServerFiles.yml
+  when: task == "copyPhpFiles"
+
+
+########build the latest android app, notify latest update and deploy it to the system ###
+
+# the build is done using Gradlew
+# the push notification is created using the firebase push notification
+# the online server contains the api for creating the push notification 
+# you can check the api code @ /automation/files/phpFilesClone/muklavaphp/fcm/
+# I am also working on a custom ansible module which will use adb to even install the app to the host system 
+- import_tasks: buildDeployAndroidApp.yml
+  when: task == "buildDeployAndroidApp"
+
+########create bckup of sql and update sql###
+# my godaddy hosting doesnt support the python-mysql hence I have used an api for creating sql dump
+# the sql dump is then downloaded into the local system to create a bckp
+# using dynamic inventory then this dump is used to update the remoteOfflineServer Database
+- import_tasks: backupUpdateMysql.yml
+  when: task == "backupUpdateMysql"  

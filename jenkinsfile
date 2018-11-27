@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            steps{
+               ansiblePlaybook disableHostKeyChecking: true, inventory: '/home/arash/Desktop/GoogleCodeIn/MuklavaAutomation/jenkinsfile', playbook: '/home/arash/Desktop/GoogleCodeIn/MuklavaAutomation/start.yml'  
+            }
+        }
+    }    
+}

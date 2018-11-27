@@ -1,0 +1,15 @@
+# copy the latest php code to the server
+
+- name: get the latest php code using GIT
+  git:
+    repo: https://shresthagrawal@bitbucket.org/shresthagrawal/muklavaphp.git
+    dest: ../files/phpFilesClone/muklavaphp/
+    update: yes
+    version: master
+  delegate_to: localhost
+  become: yes
+
+- name: copy the latest code to the online server
+  copy:
+    src: ../files/phpFilesClone/muklavaphp/
+    dest: public_html/salabs    

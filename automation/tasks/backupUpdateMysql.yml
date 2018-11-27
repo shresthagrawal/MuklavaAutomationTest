@@ -1,0 +1,25 @@
+# the Godaddy shared hosting doesn't support python-mysql hence can't use inbuilt modules
+# hence I created my own Api whic creates backup when it is called
+- name: send an api call to create sql dump
+  uri:
+    url: http://muklava.com/salabs/sqlDump.php
+    method: GET
+    return_content: yes
+  register: msg
+- debug:
+    var: msg['content']
+
+
+# fetch the Mysql backup from the server
+- fetch:
+    src: public_html/salabs/latestBackup.gz
+    dest: ../files/mysqlBackup
+    flat: yes
+
+# update the remoteOfflineServer Database from the dynamic inventory 
+- name: Restore database
+  mysql_db:
+    name: muklavalocal
+    state: import
+    target: ../files/mysqlBackup/latestBackup.gz
+  delegate_to: remoteOfflineServer
